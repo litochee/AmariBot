@@ -1,0 +1,31 @@
+{
+  "name": "amaribot",
+  "version": "0.0.1",
+  "description": "This bot is focus on level system. With some extra's.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litochee/AmariBot.git"
+  },
+  "keywords": [
+    "AmariBot",
+    "leaderboards",
+    "chat",
+    "commands",
+    "discord",
+    "discordjs"
+  ],
+  "author": "Litochee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/litochee/AmariBot/issues"
+  },
+  "homepage": "https://github.com/litochee/AmariBot#readme",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "sqlite": "^2.8.0"
+  }
+}
