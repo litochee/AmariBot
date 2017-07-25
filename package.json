@@ -1,6 +1,6 @@
 {
   "name": "amaribot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This bot is focus on level system. With some extra's.",
   "main": "app.js",
   "scripts": {
@@ -26,6 +26,8 @@
   "homepage": "https://github.com/litochee/AmariBot#readme",
   "dependencies": {
     "discord.js": "^11.1.0",
+    "moment": "^2.18.1",
+    "moment-duration-format": "^1.3.0",
     "sqlite": "^2.8.0"
   }
 }
