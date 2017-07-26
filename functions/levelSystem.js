@@ -1,3 +1,4 @@
+const jsesc = require('jsesc');
 module.exports.scoreSystem = function(message, sql){
   sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(row =>{
     if (!row){
@@ -7,7 +8,7 @@ module.exports.scoreSystem = function(message, sql){
 
       if (curPoints > row.nextPL){
         let nPLE = Math.floor(row.nextPL * 1.45);//calculates points for next level
-        sql.run(`UPDATE userScores SET globalPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, nextPL = ${nPLE}, username='${message.author.username}' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
+        sql.run(`UPDATE userScores SET globalPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, uLevel = ${row.uLevel + 1}, nextPL = ${nPLE}, username='${jsesc(message.author.username)}' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
         message.reply(`Congrats you have leveled up! **${row.uLevel + 1}**! Congrats!`);
       }//curPoints > row.nextPL
       //checkRank.levelRank(Message, sql); FOR LEVEL/RANK IMPLEMENTS
