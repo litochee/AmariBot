@@ -1,7 +1,6 @@
 module.exports.scoreSystem = function(message, sql){
   sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(row =>{
     const eUsername = message.author.username.replace("'", "''");
-    console.log(eUsername);
     if (!row){
       sql.run(`INSERT INTO userScores (guildID, userID, username, globalPoints, nextPL, uLevel, weeklyPoints, globalRank, weeklyRank) VALUES (?,?,?,?,?,?,?,?,?)`, [message.guild.id, message.author.id, message.author.username, 1, 50, 0, 0, 0, 0]);
     } else{
