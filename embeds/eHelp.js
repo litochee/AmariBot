@@ -11,5 +11,6 @@ module.exports.helpEmbed = function(client, message, Discord) {
 **:?help** \`\`COMMAND\`\`
 **:?invite**
 **:?bug** \`\`bug information\`\`` ,true)
+    .setFooter("©Litochee", `${client.user.displayAvatarURL}`)
     message.channel.send({embed: embed});
 }

@@ -35,6 +35,8 @@ client.on("message", message => {
       commandFile.run(client, message, args, sql, Discord);
     } catch (err) {
       console.log(err);
+      client.users.get(config.ownerID).send(`${err}`);
+      return;
     }
   }
 });
