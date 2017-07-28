@@ -11,5 +11,5 @@ module.exports.helpEmbed = function(client, message, Discord) {
 **:?help** \`\`COMMAND\`\`
 **:?invite**
 **:?bug** \`\`bug information\`\`` ,true)
-  message.channel.send({embed: embed});
+    message.channel.send({embed: embed});
 }
