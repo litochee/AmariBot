@@ -6,6 +6,7 @@ exports.run = (client, message, args, sql, Discord) =>{
   var cInvite = {command:"invite", description:"When you type in :?invite you will get a prompt with the invite link to get Amari Bot on your server!"};
   var cBug = {command:"bug", description:"If you find a bug please report it with the ``:?bug <insert issue here.>`` command."};
   var cLeaderboard = {command: "leaderboard", description:"View the leaderboards for your current server and see who is top!"};
+  var crLevel = {command: "rlevel", description: "Add/Remove roles that users gain at a certain level. Make sure that there is a role named **AmariMod** (only people with this role can add roles).\n\nTo **add** a role use: \`\`:?rlevel add level RoleName\`\` \nTo **remove** a role use: \`\`:?rlevel remove RoleName\`\`"};
   let mHelp = args[0];
   if (mHelp == "leaderboard"){
     eCEmbed.spHEmbed(client, message, Discord, cLeaderboard)
@@ -17,6 +18,8 @@ exports.run = (client, message, args, sql, Discord) =>{
     eCEmbed.spHEmbed(client, message, Discord, cBug)
   }else if(mHelp == "invite"){
     eCEmbed.spHEmbed(client, message, Discord, cInvite)
+  }else if(mHelp == "rlevel"){
+    eCEmbed.spHEmbed(client, message, Discord, crLevel)
   }else{
     hEmbed.helpEmbed(client, message, Discord);
   }

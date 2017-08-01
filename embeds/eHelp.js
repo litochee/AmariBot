@@ -10,6 +10,7 @@ module.exports.helpEmbed = function(client, message, Discord) {
 **:?help**
 **:?help** \`\`COMMAND\`\`
 **:?invite**
+**:?rlevel** \`\`add/remove rolename\`\`
 **:?bug** \`\`bug information\`\`` ,true)
     .setFooter("©Litochee", `${client.user.displayAvatarURL}`)
     message.channel.send({embed: embed});
