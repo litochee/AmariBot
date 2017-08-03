@@ -12,7 +12,7 @@ module.exports.scoreSystem = function(message, sql){
         sql.run(`UPDATE userScores SET globalPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, uLevel = ${row.uLevel + 1}, nextPL = ${nPLE}, username='` + eUsername +`' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
         message.reply(`Congrats you have leveled up! **${row.uLevel + 1}**! Congrats!`);
       }//curPoints > row.nextPL
-      checkRank.levelRank(Message, sql); //FOR LEVEL/RANK IMPLEMENTS
+      checkRank.levelRank(message, sql); //FOR LEVEL/RANK IMPLEMENTS
       sql.run(`UPDATE userScores SET username='` + eUsername +`', globalPoints = ${row.globalPoints + 1}, weeklyPoints = ${row.weeklyPoints + 1} WHERE userID = ${message.author.id} AND guildID = ${message.guild.id}`);//updates points
       sql.all(`SELECT userID from userScores WHERE guildID = '${message.guild.id}' ORDER BY globalPoints DESC`).then(rColumns =>{
         const setRankUsers = rColumns.map(z => z.userID);
