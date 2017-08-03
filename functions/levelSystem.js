@@ -1,5 +1,6 @@
 const checkRank = require('./chRank.js');
-module.exports.scoreSystem = function(message, sql){
+const lUpEmbed = require('./../embeds/eLevelUp.js');
+module.exports.scoreSystem = function(client, message, sql, Discord){
   sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(row =>{
     const eUsername = message.author.username.replace("'", "''");
     if (!row){
@@ -10,7 +11,7 @@ module.exports.scoreSystem = function(message, sql){
       if (curPoints > row.nextPL){
         let nPLE = Math.floor(row.nextPL * 1.45);//calculates points for next level
         sql.run(`UPDATE userScores SET globalPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, uLevel = ${row.uLevel + 1}, nextPL = ${nPLE}, username='` + eUsername +`' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
-        message.reply(`Congrats you have leveled up! **${row.uLevel + 1}**! Congrats!`);
+        lUpEmbed.levelUpEmbed(client, message, Discord, row.uLevel + 1);
       }//curPoints > row.nextPL
       checkRank.levelRank(message, sql); //FOR LEVEL/RANK IMPLEMENTS
       sql.run(`UPDATE userScores SET username='` + eUsername +`', globalPoints = ${row.globalPoints + 1}, weeklyPoints = ${row.weeklyPoints + 1} WHERE userID = ${message.author.id} AND guildID = ${message.guild.id}`);//updates points

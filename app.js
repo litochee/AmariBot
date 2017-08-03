@@ -21,7 +21,7 @@ client.on("message", message => {
   if (message.author.bot) return; //ignores bots
   if (message.channel.type !== 'text' || message.channel.type === 'dm') return; //ignores dms
   if (!message.content.startsWith(config.prefix)){//checks if the user is typing in a command or not
-    levelerCore.scoreSystem(message, sql);
+    levelerCore.scoreSystem(client, message, sql, Discord);
 
   }else{
   //splits input to commands
