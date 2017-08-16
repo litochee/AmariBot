@@ -4,6 +4,7 @@ const fs = require('fs');
 const sql = require('sqlite');
 const config = require('./config.json');
 const levelerCore = require('./functions/levelSystem');
+const talkedRecently = new Set();
 
 sql.open(`./db/mainDB.sqlite`);
 
@@ -20,10 +21,20 @@ fs.readdir('./events/', (err, files) => {
 client.on("message", message => {
   if (message.author.bot) return; //ignores bots
   if (message.channel.type !== 'text' || message.channel.type === 'dm') return; //ignores dms
-  if (!message.content.startsWith(config.prefix)){//checks if the user is typing in a command or not
-    levelerCore.scoreSystem(client, message, sql, Discord);
+  if (!message.content.startsWith(config.prefix)){//checks if the user is NOT typing a command
+    if (talkedRecently.has(message.author.id)) {
+      return;
+    }else{
+      levelerCore.scoreSystem(client, message, sql, Discord);
+      talkedRecently.add(message.author.id);
+      setTimeout(() => {
+        // Removes the user from the set after 2.5 seconds
+        talkedRecently.delete(message.author.id);
+      }, 2500);
+    }
 
-  }else{
+
+  }else{//user IS typing a command
   //splits input to commands
     let command = message.content.split(' ')[0];
     command = command.slice(config.prefix.length);
