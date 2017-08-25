@@ -20,34 +20,37 @@ fs.readdir('./events/', (err, files) => {
 
 client.on("message", message => {
   if (message.author.bot) return; //ignores bots
-  if (message.channel.type !== 'text' || message.channel.type === 'dm') return; //ignores dms
-  if (!message.content.startsWith(config.prefix)){//checks if the user is NOT typing a command
-    if (talkedRecently.has(message.author.id)) {
-      return;
-    }else{
-      levelerCore.scoreSystem(client, message, sql, Discord);
-      talkedRecently.add(message.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after 2.5 seconds
-        talkedRecently.delete(message.author.id);
-      }, 2500);
-    }
-
-
-  }else{//user IS typing a command
-  //splits input to commands
-    let command = message.content.split(' ')[0];
-    command = command.slice(config.prefix.length);
-
-    let args = message.content.split(' ').slice(1); //passing through the argument content
-
-    try {
-      let commandFile = require(`./commands/${command}.js`);
-      commandFile.run(client, message, args, sql, Discord);
-    } catch (err) {
-      console.log(err);
-      client.users.get(config.ownerID).send(`${err}`);
-      return;
+  //if (message.channel.type !== 'text') return; 
+  if (message.channel.type === 'dm'){
+    client.users.get(config.ownerID).send(`${message.author.id}, ${message.author.username}: ${message.content}`)
+  }else{
+    if (!message.content.startsWith(config.prefix)){//checks if the user is NOT typing a command
+      if (talkedRecently.has(message.author.id)) {
+        return;
+      }else{
+        levelerCore.scoreSystem(client, message, sql, Discord);
+        talkedRecently.add(message.author.id);
+        setTimeout(() => {
+          // Removes the user from the set after 2.5 seconds
+          talkedRecently.delete(message.author.id);
+        }, 4000);
+      }
+  
+    }else{//user IS typing a command
+    //splits input to commands
+      let command = message.content.split(' ')[0];
+      command = command.slice(config.prefix.length);
+  
+      let args = message.content.split(' ').slice(1); //passing through the argument content
+  
+      try {
+        let commandFile = require(`./commands/${command}.js`);
+        commandFile.run(client, message, args, sql, Discord);
+      } catch (err) {
+        console.log(err);
+        client.users.get(config.ownerID).send(`${err}`);
+        return;
+      }
     }
   }
 });
