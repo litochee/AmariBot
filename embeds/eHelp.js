@@ -11,7 +11,9 @@ module.exports.helpEmbed = function(client, message, Discord) {
 **:?help** \`\`COMMAND\`\`
 **:?invite**
 **:?rlevel** \`\`add/remove rolename\`\`
-**:?bug** \`\`bug information\`\`` ,true)
-    .setFooter("©Litochee", `${client.user.displayAvatarURL}`)
+**:?bug** \`\`bug information\`\`
+**:?blacklist** \`\`add/remove rolename\`\`
+**:?support** \`\`need help? join now!\`\`` ,true)
+    .setFooter("© Litochee#5162", `${client.user.displayAvatarURL}`)
     message.channel.send({embed: embed});
 }

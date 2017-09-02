@@ -25,17 +25,23 @@ client.on("message", message => {
     client.users.get(config.ownerID).send(`${message.author.id}, ${message.author.username}: ${message.content}`)
   }else{
     if (!message.content.startsWith(config.prefix)){//checks if the user is NOT typing a command
-      if (talkedRecently.has(message.author.id)) {
-        return;
-      }else{
-        levelerCore.scoreSystem(client, message, sql, Discord);
-        talkedRecently.add(message.author.id);
-        setTimeout(() => {
-          // Removes the user from the set after 2.5 seconds
-          talkedRecently.delete(message.author.id);
-        }, 4000);
-      }
-  
+      sql.all(`SELECT roleName FROM bListRoles WHERE guildID=${message.guild.id}`).then(rCheck=>{
+        var blRoles = rCheck.map(g=>g.roleName);
+        if(message.member.roles.some(r=>blRoles.includes(r.name)) ) {
+          return;
+        }else{
+          if (talkedRecently.has(message.author.id)) {
+            return;
+          }else{
+            levelerCore.scoreSystem(client, message, sql, Discord);
+            talkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after 2.5 seconds
+            talkedRecently.delete(message.author.id);
+            }, 4000);
+          }
+        }
+      });
     }else{//user IS typing a command
     //splits input to commands
       let command = message.content.split(' ')[0];

@@ -7,6 +7,8 @@ exports.run = (client, message, args, sql, Discord) =>{
   var cBug = {command:"bug", description:"If you find a bug please report it with the ``:?bug <insert issue here.>`` command."};
   var cLeaderboard = {command: "leaderboard", description:"View the leaderboards for your current server and see who is top!"};
   var crLevel = {command: "rlevel", description: "Add/Remove roles that users gain at a certain level. Make sure that there is a role named **AmariMod** (only people with this role can add roles).\n\nTo **add** a role use: \`\`:?rlevel add level RoleName\`\` \nTo **remove** a role use: \`\`:?rlevel remove RoleName\`\`"};
+  var pBlackList = {command: "blacklist", description: "Add/Remove blacklists on roles (stops users in certain roles from getting points), if user has a certain role that is added to the blacklist they won't get exp. Example: ``:?blacklist add Developer``. People with the ``Developer`` role will NOT get points."};
+  var cSupport = {command: "support", description: "Type :?support to get an invite to the AmariBot support server."}
   let mHelp = args[0];
   if (mHelp == "leaderboard"){
     eCEmbed.spHEmbed(client, message, Discord, cLeaderboard)
@@ -20,6 +22,8 @@ exports.run = (client, message, args, sql, Discord) =>{
     eCEmbed.spHEmbed(client, message, Discord, cInvite)
   }else if(mHelp == "rlevel"){
     eCEmbed.spHEmbed(client, message, Discord, crLevel)
+  }else if(mHelp == "blacklist"){
+    eCEmbed.spHEmbed(client, message, Discord, pBlackList);
   }else{
     hEmbed.helpEmbed(client, message, Discord);
   }
