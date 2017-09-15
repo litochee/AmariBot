@@ -10,7 +10,8 @@ module.exports.scoreSystem = function(client, message, sql, Discord){
 
       if (curPoints > row.nextPL){
         let nPLE = Math.floor(row.nextPL * 1.45);//calculates points for next level
-        sql.run(`UPDATE userScores SET globalPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, uLevel = ${row.uLevel + 1}, nextPL = ${nPLE}, username='` + eUsername +`' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
+        sql.run(`UPDATE userScores SET globlPoints=${row.globalPoints + 1}, weeklyPoints=${row.weeklyPoints + 1}, uLevel = ${row.uLevel + 1}, nextPL = ${nPLE}, username='` + eUsername +`' WHERE userID=${message.author.id} AND guildID=${message.guild.id}`);
+        checkRank.levelRank(message, sql);
         lUpEmbed.levelUpEmbed(client, message, Discord, row.uLevel + 1);
       }//curPoints > row.nextPL
       checkRank.levelRank(message, sql); //FOR LEVEL/RANK IMPLEMENTS

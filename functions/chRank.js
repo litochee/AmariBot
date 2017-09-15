@@ -1,6 +1,6 @@
 module.exports.levelRank = function(message, sql) {
 sql.get(`SELECT * FROM userScores WHERE guildID='${message.guild.id}' AND userID='${message.author.id}'`).then(rlch =>{
-    sql.get(`SELECT * FROM levelRoles WHERE guildID='${message.guild.id}' AND level=${rlch.level}`).then(grank =>{
+    sql.get(`SELECT * FROM levelRoles WHERE guildID='${message.guild.id}' AND level=${rlch.uLevel}`).then(grank =>{
       if(!grank){
         return;
       }else{
