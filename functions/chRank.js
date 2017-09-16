@@ -12,10 +12,12 @@ sql.get(`SELECT * FROM userScores WHERE guildID='${message.guild.id}' AND userID
         }
       }
 
-    }).catch(() =>{
-      return;
+    }).catch((err) =>{
+      console.log(err);
+      client.users.get(config.ownerID).send(`${err}`);
     })
-  }).catch(() =>{
-    return;
+  }).catch((err) =>{
+    console.log(err);
+    client.users.get(config.ownerID).send(`${err}`);
   })
 }
