@@ -22,7 +22,23 @@ client.on("message", message => {
   if (message.author.bot) return; //ignores bots
   //if (message.channel.type !== 'text') return; 
   if (message.channel.type === 'dm'){
-    client.users.get(config.ownerID).send(`${message.author.id}, ${message.author.username}: ${message.content}`)
+    if (!message.content.startsWith(config.prefix)){
+      client.users.get(config.ownerID).send(`${message.author.id}, ${message.author.username}: ${message.content}`);
+    }else{
+      let command = message.content.split(' ')[0];
+      command = command.slice(config.prefix.length);
+  
+      let args = message.content.split(' ').slice(1); //passing through the argument content
+  
+      try {
+        let commandFile = require(`./commands/${command}.js`);
+        commandFile.run(client, message, args, sql, Discord);
+      } catch (err) {
+        console.log(err);
+        client.users.get(config.ownerID).send(`${err}`);
+        return;
+      }
+    }
   }else{
     if (!message.content.startsWith(config.prefix)){//checks if the user is NOT typing a command
       sql.all(`SELECT roleName FROM bListRoles WHERE guildID=${message.guild.id}`).then(rCheck=>{
