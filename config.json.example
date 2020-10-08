@@ -1,6 +1,6 @@
 {
 	"prefix" : ">",
 	"token" : "TOKENHERE",
-	"ownerID" : "OWNERIDHERE"
-	"dbotAuth : "DiscordBotListTOKENID"
+	"ownerID" : "OWNERIDHERE",
+	"dbotAuth" : "DiscordBotListTOKENID"
 }
